@@ -1,0 +1,10 @@
+{
+    "name": "ace-better-search",
+    "version": "0.1.0",
+    "type": "module",
+    "main": "src/extension.js",
+    "types": "extension.d.ts",
+    "devDependencies": {
+        "ace-code": "^1.39.0"
+    }
+}
