@@ -1,7 +1,10 @@
 /** @typedef {import("../extension").InputEditor} InputEditor */
+import ace from './global-ace.js';
 
-var TextMode = ace.require("ace/mode/text").Mode;
-var HashHandler = ace.require("ace/keyboard/hash_handler").HashHandler;
+var TextMode = (typeof ace.require === "function") ? ace.require("ace/mode/text").Mode
+    : (await import('ace-code/src/mode/text.js')).Mode;
+var HashHandler = (typeof ace.require === "function") ? ace.require("ace/keyboard/hash_handler").HashHandler
+    : (await import('ace-code/src/keyboard/hash_handler.js')).HashHandler;
 
 export class LibSearch {
     constructor() {
@@ -174,7 +177,7 @@ export class LibSearch {
      * @param {boolean} isRegexp
      */
     setRegexpMode(inputEditor, isRegexp) {
-        var mode = isRegexp ? "regex" : "literal"
+        var mode = isRegexp ? "regex" : "literal";
         var session = inputEditor.session;
         if (session.$modeId == mode) return;
         var textMode = new TextMode();
@@ -190,14 +193,14 @@ export class LibSearch {
                     regex: "\\\\(?:u[\\da-fA-F]{4}|x[\\da-fA-F]{2}|.)"
                 }, {
                     // invalid operators
-                    token : "invalid",
+                    token: "invalid",
                     regex: /\{\d+\b,?\d*\}[+*]|[+*$^?][+*]|[$^][?]|\?{3,}/
                 }, {
                     // operators
-                    token : "constant.language.escape",
+                    token: "constant.language.escape",
                     regex: /\(\?[:=!]|\)|\{\d+\b,?\d*\}|[+*]\?|[()$^+*?.]/
                 }, {
-                    token : "constant.language.delimiter",
+                    token: "constant.language.delimiter",
                     regex: /\|/
                 }, {
                     token: "constant.language.escape",
@@ -219,7 +222,7 @@ export class LibSearch {
                 }, {
                     defaultToken: "string.regexp.charachterclass"
                 }
-            ],
+            ]
         };
 
         rules.start = rules[mode] || rules.literal;
