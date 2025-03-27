@@ -1,0 +1,1 @@
+var r={};(function(t){t.inherits=function(n,e){n.super_=e,n.prototype=Object.create(e.prototype,{constructor:{value:n,enumerable:!1,writable:!0,configurable:!0}})},t.mixin=function(n,e){for(var i in e)n[i]=e[i];return n},t.implement=function(n,e){t.mixin(n,e)}})(r);export{r as o};

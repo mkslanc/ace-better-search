@@ -1,6 +1,5 @@
-const config = ace.require("ace/config");
-import * as searchbox from "./searchbox.js";
+import ace from "./global-ace.js";
 
-config.setModuleLoader("ace/ext/searchbox", async function () {
-    return searchbox;
+ace.config.setModuleLoader("ace/ext/searchbox", async function () {
+    return import("./searchbox.js");
 });

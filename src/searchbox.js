@@ -4,24 +4,39 @@
  @typedef {import("../extension").InputEditor} InputEditor
  @typedef {import("../extension").ExtendedSearchOptions} ExtendedSearchOptions */
 
-var dom = ace.require("ace/lib/dom");
-var lang = ace.require("ace/lib/lang");
-var event = ace.require("ace/lib/event");
+import ace from './global-ace.js';
+
+var dom = (typeof ace.require === "function") ? ace.require("ace/lib/dom") : await import('ace-code/src/lib/dom.js');
+var lang = (typeof ace.require === "function") ? ace.require("ace/lib/lang") : await import('ace-code/src/lib/lang.js');
+var event = (typeof ace.require === "function") ? ace.require("ace/lib/event")
+    : await import('ace-code/src/lib/event.js');
 import searchboxCss from "./searchbox-css.js";
 
-var HashHandler = ace.require("ace/keyboard/hash_handler").HashHandler;
-var keyUtil = ace.require("ace/lib/keys");
-var nls = ace.require("ace/config").nls;
-var {Range} = ace.require("ace/range");
+var HashHandler = (typeof ace.require === "function") ? ace.require("ace/keyboard/hash_handler").HashHandler
+    : (await import('ace-code/src/keyboard/hash_handler.js')).HashHandler;
+var keyUtil = (typeof ace.require === "function") ? ace.require("ace/lib/keys")
+    : await import('ace-code/src/lib/keys.js');
+/*var {nls} = (typeof ace.require === "function") ? ace.require("ace/config")
+    : (await import('ace-code/src/lib/app_config.js'));
+console.log(nls)*/
+var {Range} = (typeof ace.require === "function") ? ace.require("ace/range") : await import('ace-code/src/range.js');
 import {execFind as _execFind} from "./async_search.js";
 
-var {$singleLineEditor} = ace.require("ace/autocomplete/popup");
-var {UndoManager} = ace.require("ace/undomanager");
+var {$singleLineEditor} = (typeof ace.require === "function") ? ace.require("ace/autocomplete/popup")
+    : await import('ace-code/src/autocomplete/popup.js');
+var {UndoManager} = (typeof ace.require === "function") ? ace.require("ace/undomanager")
+    : await import('ace-code/src/undomanager.js');
 import {LibSearch} from "./libsearch.js";
 
 var MAX_COUNT = 999;
 
 dom.importCssString(searchboxCss, "ace_searchbox", false);
+
+
+//TODO:
+function nls(one, two) {
+    return two;
+}
 
 export class SearchBox {
     /**

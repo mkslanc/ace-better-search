@@ -4,7 +4,7 @@
     "noEmit": true,
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "module": "commonjs",
+    "module": "es2022",
     "target": "es2019",
     "allowJs": true,
     "checkJs": true,
