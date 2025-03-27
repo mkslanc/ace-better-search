@@ -7,5 +7,8 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['ace-code']
+  },
+  build: {
+    target: 'esnext'
   }
 })
